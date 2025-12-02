@@ -86,8 +86,11 @@ export default function Item() {
       const newItem = {
         id: rawMaterial.id,
         name: rawMaterial.product.name + `(${rawMaterial.product.sku})`,
+        available_quantity: rawMaterial.quantity,
         quantity: parseFloat(quantity),
         part_numbers: rawMaterial.product.part_numbers_string,
+        sales_price: rawMaterial.product.sales_price,
+        total_price: parseFloat(rawMaterial.product.sales_price) * parseFloat(quantity),
         uom: rawMaterial.product.unit_obj[0].name
       };
       setItems([...items, newItem]);
@@ -225,8 +228,11 @@ export default function Item() {
                 <TableHead>
                   <TableHeadCell className="bg-orange-500 text-white">Item Name</TableHeadCell>
                   <TableHeadCell className="bg-orange-500 text-white">Part Number(s)</TableHeadCell>
+                  <TableHeadCell className="bg-orange-500 text-white">Available</TableHeadCell>
                   <TableHeadCell className="bg-orange-500 text-white">Quantity</TableHeadCell>
                   <TableHeadCell className="bg-orange-500 text-white">UOM</TableHeadCell>
+                  <TableHeadCell className="bg-orange-500 text-white">Price</TableHeadCell>
+                  <TableHeadCell className="bg-orange-500 text-white">Total</TableHeadCell>
                   <TableHeadCell className="bg-orange-500 text-white">Actions</TableHeadCell>
                 </TableHead>
                 <TableBody className="divide-y">
@@ -240,10 +246,19 @@ export default function Item() {
                           {item.part_numbers}
                         </TableCell>
                         <TableCell className="text-gray-700">
+                          {item.available_quantity}
+                        </TableCell>
+                        <TableCell className="text-gray-700">
                           {item.quantity}
                         </TableCell>
                         <TableCell className="text-gray-700">
                           {item.uom}
+                        </TableCell>
+                        <TableCell className="text-gray-700">
+                          {item.sales_price}
+                        </TableCell>
+                        <TableCell className="text-gray-700">
+                          {item.total_price}
                         </TableCell>
                         <TableCell>
                           <Button
